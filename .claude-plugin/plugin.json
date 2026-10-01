@@ -1,0 +1,8 @@
+{
+  "name": "terencebristol-toolkit",
+  "version": "1.0.0",
+  "description": "Skills for knowledge work with AI, from Terence Bristol's videos.",
+  "author": { "name": "Terence Bristol", "url": "https://www.youtube.com/@terencebristol" },
+  "repository": "https://github.com/TerenceBristol/terencebristol-toolkit",
+  "license": "MIT"
+}

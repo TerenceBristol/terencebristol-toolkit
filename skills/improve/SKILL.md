@@ -1,6 +1,7 @@
 ---
 name: improve
 description: Review the current conversation and recent session history to suggest improvements to the project's configuration — CLAUDE.md, skills, frameworks, memory, agents. Checks all finding categories every run. Arguments add extra weight to specific areas. Works on any repo structure.
+compatibility: "Designed for Claude Code"
 ---
 
 # Retrospective
