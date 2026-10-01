@@ -78,9 +78,10 @@ Prompt the agent to:
    - **Gap exceeds the cap:** scan the newest 10 and report the count and date range of the unscanned remainder.
 
 2. **Extract the dialogue — both speakers, tool and system noise stripped:**
-   - Write a bash script using `jq` per session file:
-     - User turns: entries with `.type=="user" and (.isMeta != true)` — keep string content as-is; for array content keep ONLY `text` blocks. This excludes tool_result blocks, which are ALSO stored as user-type entries (a naive "user messages" extraction floods the scan with tool output; session files run to tens of MB). Then drop extracted texts that START with system-injected wrappers: `<command-`, `<system-reminder`, `<local-command` (skill expansions and reminders arrive as user-type text and are noise).
+   - Write a bash script using `jq` per session file (session timestamps are UTC: convert the run-log anchor to UTC before comparing):
+     - User turns: entries with `.type=="user" and (.isMeta != true)`: keep string content as-is; for array content keep ONLY `text` blocks. This excludes tool_result blocks, which are ALSO stored as user-type entries (a naive "user messages" extraction floods the scan with tool output; session files run to tens of MB). Then drop extracted texts that START with system-injected wrappers: `<command-`, `<system-reminder`, `<local-command`, `<task-notification` (skill expansions and reminders arrive as user-type text and are noise). Before dropping a `<command-` text, extract its `<command-args>` content (when non-empty) as a `USER-CMD <command-name>:` line: the user's main request often sits there, typed after a slash command, and a plain drop hides it.
      - Assistant turns: entries with `.type=="assistant"` — keep ONLY `text` blocks (no `tool_use`, no `thinking`).
+     - Answers and plan rejections: ALSO keep tool_result text whose `tool_use_id` belongs to an `AskUserQuestion` or `ExitPlanMode` tool_use in the same file (collect those ids first), prefixed `USER-ANSWER:`. Never match on the text alone: a Read of an older transcript also contains `The user answered:`, and text matching labels a whole earlier transcript as the user's answers. The user's picks and typed "Other" answers live only in those tool_result texts; without them the scan reports false findings and misses corrections.
    - Prefix each block `USER:` / `ASSISTANT:`, save one extract file per session to the session scratchpad directory, named `extract-<session-date>-<session-uuid>.txt` — a defined location so the size-guard hand-off (one analysis agent per session) can pick the files up.
    - Typical yield: a multi-MB session reduces to under ~150KB of dialogue.
 
@@ -108,7 +109,7 @@ Launch this as a 3rd background agent in parallel with Discovery and History Sca
    - Whether the underlying friction has recurred since (cross-reference with current History Scan signals)
    - Respect the learnings file's "rejected, don't re-surface" patterns — those stay suppressed.
 
-3. **Log-integrity check:** grep the windowed session files for `/improve` invocations with no matching run-log entry → report "unlogged runs" as a finding. This agent runs in parallel with History Scan and receives no hand-off — recompute the window yourself using the History Scan section's rules (Scanned-through anchor, exclusions, cap 10). Fall back to full session-grep reconstruction (extract Changes Applied tables / AskUserQuestion decisions from the .jsonl files) ONLY if the learnings file is missing entirely.
+3. **Log-integrity check:** grep the windowed session files for `/improve` or `/terencebristol-toolkit:improve` invocations (the plugin install can show either name) with no matching run-log entry → report "unlogged runs" as a finding. This agent runs in parallel with History Scan and receives no hand-off — recompute the window yourself using the History Scan section's rules (Scanned-through anchor, exclusions, cap 10). Fall back to full session-grep reconstruction (extract Changes Applied tables / AskUserQuestion decisions from the .jsonl files) ONLY if the learnings file is missing entirely.
 
 Return a structured report:
 - **Prior `/improve` runs:** N (list dates)
@@ -426,6 +427,8 @@ For each finding, recommend the optimal target based on scope:
 - If the finding is a fact or reference → memory file
 - ALWAYS recommend a specific placement with rationale. Never present equal-weight options without a recommendation.
 
+**Proactively recommend, never ask the user to decide.** When a new pattern or preference is discovered, state WHERE it belongs (memory file, specific skill, or CLAUDE.md) with reasoning. Don't ask "should this be in memory or a skill or CLAUDE.md?" Rubric: **Memory file:** user preferences, behavioral feedback, project-specific context that applies across skills. **Skill file:** workflow-specific rules that only matter during that skill's execution. **CLAUDE.md:** universal rules that affect all interactions (quality standards, routing logic, execution rules). **Both memory + skill:** when a rule is broadly applicable but has one skill where enforcement matters most.
+
 ## Phase 5: Present Findings
 
 **Announce:** "Found N findings across M categories. Presenting the full list, most impactful first."
@@ -445,7 +448,7 @@ When presenting findings with multiple options (Accept/Reject/Modify, or placeme
 - Instead of: "Should we add to CLAUDE.md or keep as memory?"
 - Say: "I recommend CLAUDE.md because [rationale]. [Options: Accept recommendation / Keep as memory / Modify]"
 
-The user values opinionated recommendations over equal-weight menus. Present the recommendation first, then the alternatives.
+The user values opinionated recommendations over equal-weight menus. Present the recommendation first, then the alternatives. A recommended option may only carry constraints the session evidence supports; any constraint the assistant adds itself is labelled 'my addition' in the option text (otherwise an unrequested constraint rides into a plan inside a Recommended option, and the user has to ask where it came from).
 
 ### Memory Consolidation Findings (present during Phase 5, not Phase 6)
 
@@ -490,6 +493,8 @@ Present every finding in ONE chat message, grouped by tier, most impactful first
 
 **Format:** "[Tier | Confidence] — [Source: current conversation / past session date] — [Description of finding and proposed change]. File: [full path]. Proposed: [what to add/modify/remove]. Recommendation: [specific recommended action]"
 
+**Count and check before presenting.** Count findings from the final list and state the unit once (finding or edit). Before a finding reaches the user, check its main example against the primary record, including scope choices the user made in that session (a stated count that doesn't match the list, or a finding whose example comes from an out-of-scope chat, costs trust).
+
 **Order:**
 1. Drifted items (prior accept didn't land — needs re-application)
 2. Re-surfaced previously-skipped items (with note: "previously skipped on [date]")
@@ -498,6 +503,8 @@ Present every finding in ONE chat message, grouped by tier, most impactful first
 
 After the list, resolve ONLY the items that genuinely need a user decision via AskUserQuestion (placement choices, hook scope, contested or low-confidence findings) — recommended option first. Then proceed to Phase 6, or, for large change sets, write an execution plan and get approval per the user's planning workflow before applying.
 
+**Do-no-harm pass before approval, and again after applying when the changes touch hooks or steps the user runs** (each pass in real use found blockers, such as a hook that would have blocked plan mode or a file move that would have broken dozens of path references): a separate helper reads the plan against "the setup already works well: can any change make everyday work worse?" and exercises each changed path on a real input (a hook on a replay of a real command, a check on known-good files). This is the assistant's own pass; it does not replace the user's own plan review.
+
 **Opt-in alternative — per-finding walkthrough:** if the user asks to go one at a time ("walk me through them"), present each finding via AskUserQuestion with Accept / Reject / Modify options, in the same order. In this mode, if 8+ findings, after presenting 5, ask: "Continue with remaining findings, or apply what we have so far?"
 
 ## Phase 6: Apply Changes
@@ -505,6 +512,8 @@ After the list, resolve ONLY the items that genuinely need a user decision via A
 **Announce:** "Applying N approved changes across M files..."
 
 **Scaling guidance:** For 10+ approved changes, group changes by target file and execute in parallel waves using sub-agents. Constraint: no two agents edit the same file in the same wave. For <10 changes, sequential execution is fine. When using parallel waves, present the wave structure to the user before executing: "Wave 1: [agents], Wave 2 (after Wave 1): [agents]."
+
+**After applying:** when the changes touch hooks or steps the user runs, run the do-no-harm pass again (Phase 5 paragraph) on the applied files, next to the full-read and adversarial reviews.
 
 **Verify-before-removing gate:** Before executing ANY removal (deleting a memory file, removing a CLAUDE.md rule, or deleting a skill section), re-grep the target destination to confirm the rule actually exists there. If the grep fails — the rule was approved for removal based on a claim it existed elsewhere, but it doesn't — skip the removal and flag it: "SKIPPED: [rule] was approved for removal but grep shows it's not in [target]. Keeping original." This catches false-positive audit claims that pass Phase 4c verification but don't survive a second check at execution time.
 
@@ -529,6 +538,8 @@ After the list, resolve ONLY the items that genuinely need a user decision via A
    - Create the new skill `.md` file with proper frontmatter (name, description)
    - Move the procedural content from CLAUDE.md into the skill
    - Replace the CLAUDE.md section with a one-line reference: "See /skill-name for details"
+7a. **After ANY structural edit to a skill file** (removing a mode, merging workflows, deleting a section): a line-anchored edit map plus a vocabulary grep sweep is NOT sufficient verification. Semantics of the removed concept can survive in SHARED sections that never mention its vocabulary (in one real trim, the edit map and post-edit grep were clean, yet three leftovers survived in shared phase sections; only a post-completion full-file read caught them). After the grep sweep, full-read the edited file (or spawn one Explore agent) hunting for surviving text that ASSUMES the removed structure: pause/ask patterns, alternative approval paths, choice language.
+7b. **Contradiction read:** after all edits, read every edited section against the rest of its file and against CLAUDE.md for contradictions and confusing spots (in real use this found 2 to 5 issues per run).
 8. For feedback-type findings, ALSO save as memory files:
    - File: `feedback_[topic].md` in project's memory directory
    - Frontmatter: name, description, type: feedback
@@ -569,6 +580,7 @@ After Phase 6 completes (regardless of whether any changes were applied), update
   - Scope chosen, acceptance rate by category (e.g., "Critical: 3/3 accepted")
   - Deferral counter updates (e.g., "CLAUDE.md size: 5th deferral, 210 lines")
   - Project-specific patterns or "Modify" signals from this run
+  - If the run's changes were committed in the same session, the commit id (without it, the next reader can assume the work is still uncommitted)
 - Update `## Patterns` and `## Counters` sections when the run changes them
 
 **File structure (first-run creation):**

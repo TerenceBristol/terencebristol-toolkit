@@ -4,6 +4,20 @@ All notable changes to the `/improve` skill are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [5.1.0] - 2026-10-01
+
+### Added
+- **History scan keeps your answers:** your picks in question boxes and your plan rejections now count as feedback, and so does text you type after a slash command. Without them the scan missed corrections.
+- **"My addition" label:** a recommended option that carries a limit the assistant added itself now says so.
+- **Count and check:** findings are counted from the final list, and each main example is checked before you see it.
+- **Do-no-harm pass:** before you approve, and again after applying changes to hooks or steps you run, a helper checks that nothing makes your everyday work worse.
+- **Two after-edit checks:** a full read after structural edits to a skill, and a read for contradictions.
+- **Placement without asking:** it recommends where a new rule belongs (memory, skill or CLAUDE.md) instead of asking you.
+
+### Changed
+- The past-run check also finds runs started as `/terencebristol-toolkit:improve` (the plugin install's full name).
+- The run log records the commit id when the run's changes were committed.
+
 ## [5.0.1] - 2026-08-25
 
 ### Fixed

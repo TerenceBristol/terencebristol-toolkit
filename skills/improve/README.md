@@ -110,7 +110,7 @@ It finds your setup files on its own, whatever mix you use. It's most useful for
 
 ## Latest change
 
-**5.0.1 (2026-08-25):** clearer instructions for the history scan, found by a review that ran the skill from the file alone. Full history: [CHANGELOG.md](CHANGELOG.md).
+**5.1.0 (2026-10-01):** the history scan now reads your answers in question boxes, and a do-no-harm check runs before and after changes. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
