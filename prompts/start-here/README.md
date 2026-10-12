@@ -17,7 +17,7 @@ Open [START-HERE.pdf](START-HERE.pdf) and click "Download raw file" (the arrow i
 1. Make an empty folder for one role, for example your main job.
 2. Put START-HERE.pdf in it.
 3. Open that folder in the Code tab (the `</>` icon at the top) of the Claude desktop app.
-4. Type: `Read START-HERE.pdf and set me up.`
+4. Type: `Read START-HERE.pdf and set me up.` Or drag the PDF into the message box and press Enter; Claude asks whether to start the interview.
 5. Answer one short question at a time, out loud if you can. Claude shows you a draft first.
 
 ## What it does
@@ -29,6 +29,10 @@ Open [START-HERE.pdf](START-HERE.pdf) and click "Download raw file" (the arrow i
 
 ## Latest change
 
-**1.0.0 (2026-10-07):** first version. Full history: [CHANGELOG.md](CHANGELOG.md).
+**1.0.1 (2026-10-12):** the footer names the video "Claude Code for Knowledge Work (Ep. 1: Start Here)", and best practice 2 says "each preference". Full history: [CHANGELOG.md](CHANGELOG.md).
+
+## Watch the video
+
+[Claude Code for Knowledge Work (Ep. 1: Start Here)](../../videos/claude-code-knowledge-work.md)
 
 [Back to the AI Toolkit for Knowledge Work](../../README.md)

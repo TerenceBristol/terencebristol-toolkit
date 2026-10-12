@@ -14,7 +14,7 @@ YouTube: [Terence | AI for Knowledge Work](https://www.youtube.com/@terencebrist
 |------|-----------|-------|
 | **Skills** | Instructions Claude follows for a whole task, saved so you can run them again with one command | [/improve](skills/improve/): your Claude Code setup gets better after every conversation |
 | **Prompts** | Text you paste into Claude, or a PDF you give it. Most of mine interview you first, so the result fits your work | [Start here](prompts/start-here/): give Claude Code one PDF and it sets up your first folder |
-| **Video pages** | One page per video with everything from it in one place | Coming with the next videos |
+| **Video pages** | One page per video with everything from it in one place | [Claude Code for Knowledge Work (Ep. 1: Start Here)](videos/claude-code-knowledge-work.md) |
 
 Every item has its own page with what it does, how to get it, and what changed lately.
 

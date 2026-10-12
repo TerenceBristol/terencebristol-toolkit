@@ -4,6 +4,12 @@ All notable changes to the Start here prompt are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.0.1] - 2026-10-12
+
+### Changed
+- The footer now names the video "Claude Code for Knowledge Work (Ep. 1: Start Here)".
+- Best practice 2 now asks for a short reason on each preference.
+
 ## [1.0.0] - 2026-10-07
 
 ### Added
