@@ -35,70 +35,50 @@ To update, download the file again and replace yours.
 
 ## What it does
 
-`/improve` starts by asking what to look at: **this conversation only** (the default) or **this conversation plus the sessions since your last run** (up to 10, with a check of what earlier runs recommended). A third mode, `/improve config audit`, checks your setup files without reading any conversation.
+`/improve` asks what to look at: **this conversation only** (the default) or **this conversation plus the sessions since your last run** (up to 10, with a check of what earlier runs recommended). You can also name sessions by id, and `/improve config audit` checks your setup files without reading any conversation.
 
-| Phase | What happens |
+| Step | What happens |
 |-------|-------------|
-| **Scope** | You pick "this conversation only" or "plus history". |
-| **1. Discovery** | A helper maps every setup file in the project and in your global folder: CLAUDE.md, skills, agents, memory, settings and `.claude/rules/`. |
-| **2. History scan** | A second helper reads the sessions since your last run (up to 10). It reads both sides of each conversation, strips tool output, and judges your feedback by meaning, not keywords. Every run says which sessions it covered. *(History scope only)* |
-| **3. Live analysis** | Reads the current conversation for 9 kinds of signal (below). |
-| **4. Cross-check** | Compares what it found with your actual files: rules that exist but keep getting broken, patterns that repeat, files that have grown too big, memory that has gone stale. |
-| **5. Findings** | One short list, most important first, each with evidence and a recommendation. Say "walk me through them" to accept, reject or change them one by one. |
-| **6. Apply** | Makes only the changes you approved. |
+| **1. Load** | Reads its notes files (what you accepted or rejected before) and, after a Claude Code update, checks whether any of your workarounds were fixed and reruns your hook tests if you have them. |
+| **2. Scope** | You pick "this conversation only" or "plus history". |
+| **3. Gather** | Helpers map every setup file (CLAUDE.md, skills, agents, settings, hooks, `.claude/rules/`) and, in history scope, read the past sessions by meaning, including your answers in question boxes. It also reads the current conversation. |
+| **4. Removal pass** | Before it adds anything, it looks for lines to cut: rules the model follows anyway, duplicates, stale facts and contradictions. Then health checks: file sizes, misplaced rules, overlapping skills. |
+| **5. Findings** | Each finding gets one recommended home, from a structural fix or a hook down to CLAUDE.md last. A new rule needs evidence from at least two moments. |
+| **6. Findings page** | With more than four proposed changes, one local page shows each of them word for word, with its evidence and a preset pick (four or fewer are shown in chat). You accept the picks in one answer, or flag the ones you want to discuss. A helper first checks that no change makes your everyday work worse. |
+| **7. Apply** | Makes only the changes you accepted. New hooks, new skills and bigger restructures go through a plan first. |
+| **8. Wrap up** | Saves what it learned, prints how much your always-loaded instructions grew or shrank, and asks whether you want to commit. |
 
-In history scope, up to three helpers run at the same time (discovery, history scan, and an audit of earlier runs that checks whether the changes you accepted really landed). That's why the first findings come quickly.
+### What it looks for
 
-### The 9 signals it looks for
+Corrections, things you had to repeat, friction (several tries), work you did by hand that could be automated, tone and wrong assumptions, repeated workflows, techniques that worked, and what you praised. Anything you type after `/improve` gets the highest priority.
 
-| Signal | What it means |
-|--------|--------------|
-| **Corrections** | You corrected what the assistant did |
-| **Praise** | You confirmed something worked well |
-| **Friction** | Something took several tries |
-| **Capability gaps** | You did something by hand that could be automated |
-| **Behaviour patterns** | Tone problems, wrong assumptions, over-explaining |
-| **Targeted feedback** | Words you typed after `/improve` |
-| **Workflow preferences** | Repeated steps the assistant should learn |
-| **Techniques** | Approaches that worked and should be written down |
-| **Working together** | Gentle suggestions for how you can work better with your assistant |
+### How findings are ordered
 
-### How findings are ranked
-
-1. **Targeted:** feedback you typed after the command
-2. **Critical:** rules that exist but aren't being followed
-3. **Promotion:** patterns seen 3+ times that should become written rules
-4. **Misplaced content:** instructions living in the wrong file
-5. **Improvement:** direct corrections from the current conversation
-6. **Technique:** approaches worth writing down
-7. **Maintenance:** files that are too big, contradict each other or are out of date
-8. **Reinforcement:** things that work and should stay
-9. **New skill:** gaps that could become a new skill or agent
-10. **Working together:** suggestions for the human side
+Removals first, then earlier accepted changes that drifted, items you skipped before that came back, then your typed feedback, critical items (rules that keep breaking), recurring patterns, misplaced content, improvements, techniques, maintenance, things that work and should stay, new skill steps, and last, tips for the human side.
 
 ### Example finding
 
 ```
-[Critical | High] Source: 2026-04-28. Rule not being followed.
+[add | Critical | High | needs a plan] ~/.claude/CLAUDE.md:42
 
-Rule "ALWAYS use AskUserQuestion for decisions" is in CLAUDE.md
-but was broken 3 times in recent sessions.
-
-File: ~/.claude/CLAUDE.md
-Proposed: turn it into a hook (the computer enforces it).
-Recommendation: turn it into a hook, because the written rule keeps slipping.
+Rule "Ask before deleting files" was broken 3 times in recent sessions.
+Proposed: a hook that blocks the delete command (the computer enforces it),
+plus the rule with a short reason.
+Evidence: sessions of 2 and 5 May, quotes on the card.
 ```
 
 ---
 
 ## Files it keeps
 
-`/improve` keeps two small notes files and manages them itself:
+`/improve` keeps four small files and manages them itself:
 
 - **`~/.claude/improve-learnings.md`** (global): what it has learned about how you like findings and rules written. Read at the start of every run, in every project.
+- **`~/.claude/improve-last-version.txt`**: the Claude Code version of the last run, so it knows when to run the update checks.
+- **`~/.claude/improve-extract.sh`**: the small script the history scan writes on its first run to pull the dialogue out of past sessions, reused after that.
 - **`~/.claude/projects/<project-path>/improve-learnings.md`** (per project): that project's patterns and a dated log of runs. It sits in Claude Code's own data folder, never in your project. `<project-path>` is the project's full path with every `/`, space and `.` turned into `-` (for example `/Users/jane/Code/my-app` becomes `-Users-jane-Code-my-app`).
 
-Delete either file any time to start fresh. Patterns confirmed across about 5 runs are offered for promotion into your real setup files and then removed from the notes, so the notes stay small and your setup stays the source of truth.
+Delete any of them any time to start fresh. Patterns confirmed across about 5 runs are offered for promotion into your real setup files and then removed from the notes, so the notes stay small and your setup stays the source of truth.
 
 ---
 
@@ -110,7 +90,7 @@ It finds your setup files on its own, whatever mix you use. It's most useful for
 
 ## Latest change
 
-**5.1.0 (2026-10-01):** the history scan now reads your answers in question boxes, and a do-no-harm check runs before and after changes. Full history: [CHANGELOG.md](CHANGELOG.md).
+**6.0.0 (2026-10-20):** rebuilt: removals come first, findings arrive on one page you accept in one answer, and it checks your workarounds after a Claude Code update. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

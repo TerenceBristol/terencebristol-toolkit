@@ -4,6 +4,24 @@ All notable changes to the `/improve` skill are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.0.0] - 2026-10-20
+
+### Added
+- **Removal pass first:** before any addition it looks for lines to cut (rules the model follows anyway, duplicates, stale facts, contradictions).
+- **Findings page:** with more than four proposed changes, each sits word for word on one local page with its evidence and a preset pick; you accept in one answer or flag items to discuss (four or fewer are shown in chat).
+- **Named sessions:** `/improve <session id>` scans exactly those sessions.
+- **After a Claude Code update:** it checks whether your workarounds were fixed in the changelog and reruns your hook tests if you have them.
+- **Homes order and intake test:** each finding gets one recommended home, from a structural fix or a hook down to CLAUDE.md last; a new rule needs evidence from two moments.
+- **Smaller additions:** an optional follow-ups list for dated config items, a stale-files count at the end, a one-time offer to port a proven change to your other projects, and size estimates in tokens.
+
+### Changed
+- Memory files are checked only when auto memory is on; versioned files are the home for rules.
+- New hooks, new skills and bigger restructures go through a plan after your accept.
+- Rebuilt around the steps above, so the run reads differently from 5.1.0.
+
+### Removed
+- It no longer writes feedback into memory files or checks the size of `MEMORY.md`; rules go to versioned files instead.
+
 ## [5.1.0] - 2026-10-01
 
 ### Added
