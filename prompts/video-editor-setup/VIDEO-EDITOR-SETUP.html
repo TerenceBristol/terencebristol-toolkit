@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!-- Claude: the prompt for you is the section with id="prompt" below. Read all of it, then start with Step 1 (or carry on, if this folder's CLAUDE.md shows we already started). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set up Claude Code as your video editor</title>
+<meta name="description" content="Give this page to Claude Code. It asks about your videos, checks your setup, then builds your editor with you one step at a time.">
+<style>
+:root {
+  --ground: #F7F6F2; --grid: rgba(0,0,0,0.045); --card: #FFFFFF; --card-border: rgba(0,0,0,0.07);
+  --shadow: 0 2px 10px rgba(0,0,0,0.06), 0 8px 30px rgba(0,0,0,0.05);
+  --tint: #FBEFE9; --ink: #1A1A1A; --ink-2: #55524E; --ink-3: #8A867F;
+  --peach: #DE7356; --peach-deep: #B85A3F;
+  --head: "Space Grotesk", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; color: var(--ink); font: 16px/1.55 var(--body);
+  background-color: var(--ground);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+main {
+  max-width: 1440px; margin: 0 auto; padding: 44px 40px 48px;
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: 40px; align-items: end;
+}
+#prompt { display: contents; }
+.hero { grid-column: 1; }
+.intro { grid-column: 2; }
+.steps, .practices, .howto, footer { grid-column: 1 / -1; }
+h1, h2 { font-family: var(--head); letter-spacing: -0.01em; margin: 0; }
+.hero { max-width: 900px; }
+h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.04; font-weight: 700; }
+h1 .mark { background: linear-gradient(transparent 68%, rgba(222,115,86,0.35) 68%, rgba(222,115,86,0.35) 92%, transparent 92%); }
+.lede { font-size: 20px; color: var(--ink-2); margin: 16px 0 24px; max-width: 46ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  font: 600 16px/1 var(--head); padding: 14px 20px; border-radius: 10px; cursor: pointer;
+  border: 1.5px solid var(--ink); text-decoration: none; display: inline-flex; gap: 10px; align-items: center;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--peach-deep); outline-offset: 2px; }
+.btn-primary { background: var(--peach); color: var(--ink); }
+.btn-secondary { background: var(--card); color: var(--ink); }
+.btn svg { width: 18px; height: 18px; }
+.copied { font: 600 15px var(--head); color: var(--ink-2); min-width: 7ch; }
+.intro {
+  background: var(--card); border: 1px solid var(--card-border); border-left: 4px solid var(--peach);
+  border-radius: 12px; padding: 14px 20px; box-shadow: var(--shadow);
+}
+.intro p { margin: 4px 0; }
+.intro p:first-child { font-size: 18px; font-weight: 600; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+.step {
+  position: relative; background: var(--card); border: 1px solid var(--card-border); border-radius: 14px;
+  padding: 20px 22px 14px; box-shadow: var(--shadow); font-size: 15px; line-height: 1.5;
+}
+.step::before {
+  content: attr(data-n); position: absolute; top: -18px; left: 18px; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--peach); color: var(--ink); font: 700 20px/40px var(--head); text-align: center;
+  border: 1.5px solid var(--ink);
+}
+.step h2 { font-size: 21px; margin: 10px 0 8px; }
+.step p { margin: 8px 0; }
+.step ol { margin: 6px 0; padding-left: 22px; }
+.step li { margin: 3px 0; }
+.step li::marker { color: var(--peach-deep); font-weight: 700; }
+.practices, .howto {
+  background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; box-shadow: var(--shadow);
+  padding: 22px 26px; margin-top: 24px;
+}
+.practices h2, .howto h2 { font-size: 22px; margin-bottom: 8px; }
+.practices > p { color: var(--ink-2); margin: 0 0 6px; max-width: 80ch; }
+.groups { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; row-gap: 6px; }
+.group h3 { font: 700 15px var(--head); text-transform: uppercase; letter-spacing: .06em; color: var(--peach-deep); margin: 16px 0 6px; }
+.practices ul { padding-left: 20px; margin: 0; }
+.practices li { margin: 0 0 8px; }
+.practices li::marker { color: var(--peach); }
+.howto { background: var(--tint); }
+.howto ol { padding-left: 22px; margin: 8px 0; }
+.howto li { margin: 4px 0; }
+.howto code { font: 14px "SF Mono", ui-monospace, Menlo, Consolas, monospace; background: var(--card); padding: 2px 6px; border-radius: 6px; border: 1px solid var(--card-border); }
+.howto p { margin: 8px 0; }
+.note { color: var(--ink-2); font-size: 15px; }
+footer { margin-top: 28px; color: var(--ink-3); font-size: 14px; }
+footer a { color: var(--ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero, .intro, .step, .practices, .howto { animation: rise .5s ease both; }
+  .intro { animation-delay: .08s; }
+  .step:nth-child(1) { animation-delay: .14s; } .step:nth-child(2) { animation-delay: .2s; } .step:nth-child(3) { animation-delay: .26s; }
+  .practices { animation-delay: .32s; } .howto { animation-delay: .38s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+@media (max-width: 980px) {
+  main { padding: 36px 18px 32px; display: block; }
+  .intro { margin-top: 28px; }
+  .steps { grid-template-columns: 1fr; gap: 28px; }
+  .groups { grid-template-columns: 1fr; }
+  .lede { font-size: 18px; }
+}
+@media print {
+  body { background: #fff; }
+  main { display: block; }
+  .actions { display: none; }
+  .step, .practices, .howto, .intro { box-shadow: none; animation: none; }
+  .steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1 id="title">Set up Claude Code as your <span class="mark">video editor</span></h1>
+    <p class="lede">Give this page to Claude Code. It asks about your videos, checks your setup, then builds your editor with you one step at a time.</p>
+    <div class="actions">
+      <button class="btn btn-primary" id="copy" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        Copy prompt for Claude
+      </button>
+      <a class="btn btn-secondary" id="download" href="VIDEO-EDITOR-SETUP.html" download="VIDEO-EDITOR-SETUP.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        Download this page
+      </a>
+      <span class="copied" id="copied" role="status" aria-live="polite"></span>
+    </div>
+  </header>
+
+  <section id="prompt" aria-label="The prompt for Claude">
+    <div class="intro">
+      <p>I'm not a video editor. I want you to become my video editor: I record, you do the heavy lifting, and I stay in charge of every decision.</p>
+      <p>Read all of this before you reply, then start with Step 1 (if this folder's CLAUDE.md shows we already started, carry on from there). Ask one short question at a time, and give me your suggested answer when you have one.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step" data-n="1">
+        <h2>Step 1: Short intake</h2>
+        <p>Before you check or research anything, ask me:</p>
+        <ol>
+          <li>Which video editing app I use, or if I don't use one at all.</li>
+          <li>What kind of videos I make and how long they are.</li>
+          <li>What I want you to take over first: the rough cut (removing mistakes, pauses and repeats), the graphics (titles, captions, diagrams, text on screen), or both.</li>
+        </ol>
+        <p>Keep it to these few questions, and if I answer several at once, move on. The rest comes later. After the intake, if we're not in a folder made for my video work, offer to make one. If I agree, save my answers so far in that folder's CLAUDE.md with a copy of this page (or the prompt I pasted), and keep working there in this session. Tell me to open Claude Code in that folder next time.</p>
+      </article>
+      <article class="step" data-n="2">
+        <h2>Step 2: Check and research</h2>
+        <ol>
+          <li>Look at my computer yourself: the system, free space, which tools are installed, which version and edition (free or paid) of my editing app I have and where my recordings are saved (they may still be on my phone). Don't ask me what you can find out on your own. Only look: don't run anything that changes my computer or opens an installer.</li>
+          <li>Research how Claude can work with my editing app today (on the web, or in the app's own documentation and scripting files), or how to edit without one if I have none.</li>
+          <li>Tell me in plain words what you recommend, the trade-off, and what the one-time setup involves: which free tools you'd install, roughly how long it takes and anything I have to do myself. Wait for my yes, then set it up before Step 3.</li>
+        </ol>
+      </article>
+      <article class="step" data-n="3">
+        <h2>Step 3: The deeper interview, then build</h2>
+        <p>Ask only what you need for the first result, one question at a time, each with your recommendation. For a rough cut that's usually:</p>
+        <ol>
+          <li>Whether I read a script, talk from bullet points or just talk. If I have a script or notes, look for the file first, then ask.</li>
+          <li>How tight I like my cuts and what you should always remove. Offer me two or three concrete options.</li>
+          <li>One raw recording of mine to start with. If it isn't on this computer yet, help me get it into this folder.</li>
+        </ol>
+        <p>When we get to graphics, ask about my rules for what goes on screen (for example: never show a number I didn't say) and two or three videos I like, with what I like about each.</p>
+        <p>Then build my editor one step at a time, starting with that first result. Show me each result and get my feedback before the next step.</p>
+      </article>
+    </div>
+
+    <section class="practices">
+      <h2>What usually works (advice, not rules)</h2>
+      <p>My style comes from the interview. These are starting points from the setup shown in the video this page comes from. Adapt them to my setup, and tell me when you do something differently.</p>
+      <div class="groups">
+        <div class="group">
+          <h3>Setup</h3>
+          <ul>
+            <li>Find out what my editing app lets you control before you plan around it. Some apps can be scripted from outside, some only run scripts from their own menu (a small script there can pass your instructions in), some can open a timeline file you write, and some do none of these. Free and paid editions often differ here, and an update can take a feature away, so check the edition and version I have. Also check what the app already does by itself, such as removing silences or making captions.</li>
+            <li>If you can't control my editing app, or I have none, cut the video yourself with a free command-line tool. Then give me a way to review it in what I already use: the cut video to import into my own app, or a list of the cuts with their times. If I want to polish by hand, suggest a free app that can open your timeline.</li>
+            <li>Before each install or long job, tell me what it is, roughly how big or how long, and anything I must do myself. Walk me through anything I type into Terminal step by step: how to open it, that my password stays invisible while I type it, and which popups to expect. On Windows, installs usually ask me to click Yes instead. Passwords never go into the chat. If I don't want to use Terminal, look for an installer I can click through instead. Ask before anything that costs money.</li>
+            <li>Keep one folder per video, with my original recording untouched, so any step can be redone.</li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>The rough cut</h3>
+          <ul>
+            <li>Transcribe the recording with a timestamp for every word first. Most cut decisions are easier on the text than on the waveform. On a slower computer this can take a while, so tell me how long before you start.</li>
+            <li>Cut between words, with a little air around each cut, and check every join. A cut in the middle of a word or a click at a join is a common fault.</li>
+            <li>Remove the obvious slips (repeats, false starts, long silences). When I repeat a line, keep the last complete take. Flag anything with meaning (a story, a reaction, an aside, thinking out loud) for me to decide, and don't cut it on your own.</li>
+            <li>If I record my screen, a silence may be me doing something on screen. Keep it or flag it, because cutting it can break the demo.</li>
+            <li>Tell me once that saying "cut that" after a bad take, then saying the line again, makes cutting easier. When I do it, drop that take and keep the line I say next.</li>
+            <li>If I record my screen and my camera, check which audio track is my microphone before you touch the sound.</li>
+            <li>Keep sound processing light: remove hum, set a steady loudness. Heavy noise removal and effects usually make a voice sound worse.</li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Graphics</h3>
+          <ul>
+            <li>Show me each graphic's final frame as a still first, so changes are cheap. Animate only what I approve.</li>
+            <li>Build graphics with code (for example a web page rendered to a video clip with a transparent background), so a change is an edit, not a redraw. If my app has tracks, put them on their own track above my video, so I can move or delete each one.</li>
+            <li>Nothing on screen contradicts what I say at that moment, and never invent proof. Look at the rendered frames before you show me, because code that looks right can still render wrong.</li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Working together</h3>
+          <ul>
+            <li>Work in my editing app's timeline when you can, so I can polish the cut and move things myself. Small fixes are faster by hand.</li>
+            <li>After I polish, my timeline is the truth. Read it back before you change anything, and never undo what I moved. When I say I'm done, check the whole video again (transcript and frames) before the next step.</li>
+            <li>Save my preferences (my style, my rules, what I liked and didn't, with my reasons) in this folder's CLAUDE.md, which Claude Code reads at the start of every session. For each new video, ask only what's different.</li>
+            <li>When a step works well, offer to save it as a Claude Code skill (a saved set of instructions), so it runs the same way next time.</li>
+            <li>Check your own work before I see it, and fix what you find.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <section class="howto" aria-label="How to use this page">
+    <h2>How to use it</h2>
+    <ol>
+      <li>Make a folder for your video work and open it in Claude Code (in the Claude desktop app, that's the Code tab).</li>
+      <li>Click "Copy prompt for Claude" and paste it into Claude Code. Or click "Download this page", move the file into that folder and type: <code>Read VIDEO-EDITOR-SETUP.html and set me up.</code></li>
+      <li>Answer one question at a time. You can talk instead of typing with your computer's dictation.</li>
+      <li>Claude Code usually asks your permission before it runs a command or changes a file, even a simple check. Read what it wants to do and say yes when it makes sense. Your computer may also ask whether Claude can open a folder: say yes for the folder with your recordings.</li>
+      <li>The first setup is a one-time job and can take a while. On a Mac, some installs need your password typed into a Terminal window (it stays invisible while you type). On Windows, you usually click Yes on a popup.</li>
+    </ol>
+    <p class="note">You need Claude Code, which runs on a paid Claude plan or API credits. This page is free.</p>
+  </section>
+
+  <footer>Free, no sign-up. From the AI Toolkit for Knowledge Work by Terence Bristol: <a href="https://github.com/TerenceBristol/terencebristol-toolkit">github.com/TerenceBristol/terencebristol-toolkit</a></footer>
+</main>
+<script>
+function clean(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
+function buildCopyText() {
+  var out = ["# " + clean(document.getElementById("title"))];
+  var blocks = document.querySelectorAll("#prompt h2, #prompt h3, #prompt p, #prompt ol, #prompt ul");
+  blocks.forEach(function (el) {
+    var tag = el.tagName;
+    if (tag === "H2") out.push("## " + clean(el));
+    else if (tag === "H3") out.push("### " + clean(el));
+    else if (tag === "P") out.push(clean(el));
+    else {
+      var items = Array.prototype.map.call(el.children, function (li, i) {
+        return (tag === "OL" ? (i + 1) + ". " : "- ") + clean(li);
+      });
+      out.push(items.join("\n"));
+    }
+  });
+  return out.join("\n\n") + "\n";
+}
+function showCopied(ok) {
+  var s = document.getElementById("copied");
+  s.textContent = ok ? "Copied" : "Copy failed: select the text below instead";
+  setTimeout(function () { s.textContent = ""; }, 2500);
+}
+function fallbackCopy(text) {
+  var ta = document.createElement("textarea");
+  ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  var ok = false;
+  try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+document.getElementById("copy").addEventListener("click", function () {
+  var text = buildCopyText();
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () { showCopied(true); }, function () { showCopied(fallbackCopy(text)); });
+  } else {
+    showCopied(fallbackCopy(text));
+  }
+});
+</script>
+</body>
+</html>

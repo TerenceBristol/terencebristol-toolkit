@@ -13,8 +13,8 @@ YouTube: [Terence | AI for Knowledge Work](https://www.youtube.com/@terencebrist
 | Kind | What it is | Items |
 |------|-----------|-------|
 | **Skills** | Instructions Claude follows for a whole task, saved so you can run them again with one command | [/improve](skills/improve/): your Claude Code setup gets better after every conversation<br>[/interview-me](skills/interview-me/): Claude looks things up, asks you one question at a time with its pick, then agrees the plan |
-| **Prompts** | Text you paste into Claude, or a PDF you give it. Most of mine interview you first, so the result fits your work | [Start here](prompts/start-here/): give Claude Code one PDF and it sets up your first folder |
-| **Video pages** | One page per video with everything from it in one place | [Claude Code for Knowledge Work (Ep. 1: Start Here)](videos/claude-code-knowledge-work.md) |
+| **Prompts** | Text you paste into Claude, or a PDF or page you give it. Most of mine interview you first, so the result fits your work | [Start here](prompts/start-here/): give Claude Code one PDF and it sets up your first folder<br>[Set up Claude Code as your video editor](prompts/video-editor-setup/): give Claude Code one page and it sets up your own video editor |
+| **Video pages** | One page per video with everything from it in one place | [Claude Code for Knowledge Work (Ep. 1: Start Here)](videos/claude-code-knowledge-work.md)<br>[How I Edit My Videos With Claude Code (Full Setup)](videos/claude-video-editor.md) |
 
 Every item has its own page with what it does, how to get it, and what changed lately.
 
@@ -26,8 +26,9 @@ You don't need a GitHub account for any of this.
 
 - **Copy a prompt:** open the prompt's file and click the copy button at the top right of the text.
 - **Use a PDF prompt:** download it (see the next line), then follow the steps on its page.
+- **Use a page prompt:** open the link on its page and click "Copy prompt for Claude".
 - **Download one file:** open the file and click "Download raw file" (the arrow icon at the top right).
-- **Coming from a video?** The link in the description takes you straight to that video's page.
+- **Coming from a video?** The link in the description takes you to what that video shows.
 
 ---
 
