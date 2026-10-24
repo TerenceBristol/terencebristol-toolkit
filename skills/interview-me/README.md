@@ -62,4 +62,4 @@ Inspired by [Superpowers' brainstorming skill](https://github.com/obra/superpowe
 
 ---
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)

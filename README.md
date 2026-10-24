@@ -1,10 +1,10 @@
-# AI Toolkit for Knowledge Work
+# AI Toolkit
 
 The skills and prompts I use every day for my own work with AI. Free, no email. I don't code for a living, and you don't need to either.
 
 I'm Terence. I've used AI heavily in my work since 2022. Everything here is something I use myself, shared as a starting point so you can make it your own.
 
-YouTube: [Terence | AI for Knowledge Work](https://www.youtube.com/@terencebristol)
+YouTube: [Terence Bristol](https://www.youtube.com/@terencebristol)
 
 ---
 
@@ -14,7 +14,7 @@ YouTube: [Terence | AI for Knowledge Work](https://www.youtube.com/@terencebrist
 |------|-----------|-------|
 | **Skills** | Instructions Claude follows for a whole task, saved so you can run them again with one command | [/improve](skills/improve/): your Claude Code setup gets better after every conversation<br>[/interview-me](skills/interview-me/): Claude looks things up, asks you one question at a time with its pick, then agrees the plan |
 | **Prompts** | Text you paste into Claude, or a PDF or page you give it. Most of mine interview you first, so the result fits your work | [Start here](prompts/start-here/): give Claude Code one PDF and it sets up your first folder<br>[Set up Claude Code as your video editor](prompts/video-editor-setup/): give Claude Code one page and it sets up your own video editor |
-| **Video pages** | One page per video with everything from it in one place | [Claude Code for Knowledge Work (Ep. 1: Start Here)](videos/claude-code-knowledge-work.md)<br>[How I Edit My Videos With Claude Code (Full Setup)](videos/claude-video-editor.md) |
+| **Video pages** | One page per video with everything from it in one place | [Claude Code for Beginners: Your First AI Agent (Ep. 1)](videos/claude-code-knowledge-work.md)<br>[How I Edit My Videos With Claude Code (Full Setup)](videos/claude-video-editor.md) |
 
 Every item has its own page with what it does, how to get it, and what changed lately.
 

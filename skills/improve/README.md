@@ -4,7 +4,7 @@ Your Claude Code setup gets better after every conversation: `/improve` reads wh
 
 **Works in:** Claude Code (desktop app Code tab or terminal). It reads the conversation files Claude Code saves on your computer, so it won't work in the Claude app's chat.
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)
 
 ---
 
@@ -115,4 +115,4 @@ Built by studying six approaches from the Claude Code community:
 
 MIT. Use it, change it, make it your own.
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)

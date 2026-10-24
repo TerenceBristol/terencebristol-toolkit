@@ -4,7 +4,7 @@ Give Claude Code one page and it interviews you, checks your computer and your e
 
 **Works in:** Claude Code (tested with clean Claude Code runs in the terminal, with simulated first-time users on Mac and Windows; the Code tab of the Claude desktop app is not yet tested). It needs to look at your computer and work with files, so it won't work in the Claude app's chat. Claude Code needs a paid Claude plan or API credits; this page is free.
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)
 
 ---
 
@@ -28,10 +28,10 @@ Open the page: [Set up Claude Code as your video editor](https://terencebristol.
 
 ## Latest change
 
-**1.0.0 (2026-10-23):** first version. Full history: [CHANGELOG.md](CHANGELOG.md).
+**1.0.1 (2026-10-24):** the page footer names the library by its new name, "AI Toolkit". Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ## Watch the video
 
 [How I Edit My Videos With Claude Code (Full Setup)](../../videos/claude-video-editor.md)
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)

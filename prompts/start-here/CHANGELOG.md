@@ -4,6 +4,11 @@ All notable changes to the Start here prompt are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.0.2] - 2026-10-24
+
+### Changed
+- The footer now names the video by the short form of its new title, "Claude Code for Beginners (Ep. 1)".
+
 ## [1.0.1] - 2026-10-12
 
 ### Changed

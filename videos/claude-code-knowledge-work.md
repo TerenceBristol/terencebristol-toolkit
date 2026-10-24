@@ -1,4 +1,4 @@
-# Claude Code for Knowledge Work (Ep. 1: Start Here)
+# Claude Code for Beginners: Your First AI Agent (Ep. 1)
 
 Video: https://youtu.be/cTJIomOcJvw
 
@@ -22,4 +22,4 @@ Turn a good result into a skill:
 Review this conversation and turn it into a skill.
 ```
 
-[Back to the AI Toolkit for Knowledge Work](../README.md)
+[Back to the AI Toolkit](../README.md)

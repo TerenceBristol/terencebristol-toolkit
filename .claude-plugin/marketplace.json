@@ -1,12 +1,12 @@
 {
   "name": "terencebristol",
-  "description": "Free skills and prompts for knowledge work with AI, from Terence Bristol's videos.",
+  "description": "Free skills and prompts for working with AI, from Terence Bristol's videos.",
   "owner": { "name": "Terence Bristol" },
   "plugins": [
     {
       "name": "terencebristol-toolkit",
       "source": "./",
-      "description": "Skills for knowledge work with AI. First up: /improve, which makes your Claude Code setup better after every conversation."
+      "description": "Skills for working with AI. First up: /improve, which makes your Claude Code setup better after every conversation."
     }
   ]
 }

@@ -41,4 +41,4 @@ When the graphics are animated (step 5), tell your Claude:
 put the motion graphics in the timeline
 ```
 
-[Back to the AI Toolkit for Knowledge Work](../README.md)
+[Back to the AI Toolkit](../README.md)

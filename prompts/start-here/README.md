@@ -4,7 +4,7 @@ Give Claude Code one PDF and it interviews you, then writes the CLAUDE.md file t
 
 **Works in:** Claude Code (the Code tab of the Claude desktop app, or the terminal). It needs to write a file in your folder, so it won't work in the Claude app's chat.
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)
 
 ---
 
@@ -29,10 +29,10 @@ Open [START-HERE.pdf](START-HERE.pdf) and click "Download raw file" (the arrow i
 
 ## Latest change
 
-**1.0.1 (2026-10-12):** the footer names the video "Claude Code for Knowledge Work (Ep. 1: Start Here)", and best practice 2 says "each preference". Full history: [CHANGELOG.md](CHANGELOG.md).
+**1.0.2 (2026-10-24):** the footer names the video by the short form of its new title, "Claude Code for Beginners (Ep. 1)". Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ## Watch the video
 
-[Claude Code for Knowledge Work (Ep. 1: Start Here)](../../videos/claude-code-knowledge-work.md)
+[Claude Code for Beginners: Your First AI Agent (Ep. 1)](../../videos/claude-code-knowledge-work.md)
 
-[Back to the AI Toolkit for Knowledge Work](../../README.md)
+[Back to the AI Toolkit](../../README.md)
