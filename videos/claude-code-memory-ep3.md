@@ -1,4 +1,4 @@
-# Claude Code Memory and Context: Save Your Limits (Ep. 3)
+# Claude Code Memory and Context: Less Is More (Ep. 3)
 
 Video: https://youtu.be/W3idMEb2_IE
 

@@ -55,6 +55,6 @@ Use it when a chat gets long or when you switch tasks.
 
 ## Watch the video
 
-[Claude Code Memory and Context: Save Your Limits (Ep. 3)](../../videos/claude-code-memory-ep3.md)
+[Claude Code Memory and Context: Less Is More (Ep. 3)](../../videos/claude-code-memory-ep3.md)
 
 [Back to the AI Toolkit](../../README.md)
