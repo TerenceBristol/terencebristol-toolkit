@@ -31,7 +31,7 @@ Why: long chats get slower, more expensive and more confused, because Claude re-
 
 ## Step 2: Confirm this run
 
-Ask one question at a time, recommendation first with its reason. Use a multiple-choice question tool where your app has one.
+Ask one question at a time, recommendation first with its reason, but only a question whose answer would change the handoff (an unclear task, a next step the conversation does not settle, an open item only the user knows). When the conversation already settles an answer, take the recommendation and list it in the message that reports the handoff, so the user can overrule it, because routine confirmation questions mostly get the recommended answer anyway. Use a multiple-choice question tool where your app has one.
 
 1. **Which task?** List the 5 most recently changed handoff files and recommend one, or "new file" for a new task. A chat with no real task yet (a first test) uses its own setup as the task. Before recommending "new file", search the handoff folder for the same topic, because two handoffs for one task split its state.
 2. **What does the next chat do first?** Propose one sentence from the conversation and the approved plan. With an approved plan, propose "Carry out the approved plan: <plan title>".
