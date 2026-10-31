@@ -34,7 +34,7 @@ Why: long chats get slower, more expensive and more confused, because Claude re-
 Ask one question at a time, recommendation first with its reason, but only a question whose answer would change the handoff (an unclear task, a next step the conversation does not settle, an open item only the user knows). When the conversation already settles an answer, take the recommendation and list it in the message that reports the handoff, so the user can overrule it, because routine confirmation questions mostly get the recommended answer anyway. Use a multiple-choice question tool where your app has one.
 
 1. **Which task?** List the 5 most recently changed handoff files and recommend one, or "new file" for a new task. A chat with no real task yet (a first test) uses its own setup as the task. Before recommending "new file", search the handoff folder for the same topic, because two handoffs for one task split its state.
-2. **What does the next chat do first?** Propose one sentence from the conversation and the approved plan. With an approved plan, propose "Carry out the approved plan: <plan title>".
+2. **What does the next chat do first?** (Skip it for a finished task.) Propose one sentence from the conversation and the approved plan. With an approved plan, propose "Carry out the approved plan: <plan title>".
 3. **Open items to carry over.** List what you found (decisions still open, unfinished steps, scheduled events, steps the user owes such as checks, sends or decisions) and ask what is missing.
 
 ## Step 3: Write the handoff file
@@ -61,7 +61,9 @@ Ask one question at a time, recommendation first with its reason, but only a que
 
 ## Step 4: Write the kickoff prompt
 
-A plain-text file, `<handoff folder>/kickoff-<topic>.txt`, overwritten on every run (one prompt, the latest state). No placeholders. Content, in this order:
+**Finished task:** when the task is finished and no next chat continues it, write the handoff only and say in the report that no kickoff is needed, because a kickoff for finished work has nothing to start.
+
+A plain-text file, `<handoff folder>/kickoff-<topic>.txt`, overwritten on every run (one prompt, the latest state). No placeholders. One kickoff per next chat: never a second copy beside it (a `-b` copy, a `.pre-<date>` backup, a dated copy), because a chat started from an old copy works from stale state. It restates no state the handoff holds (counts, statuses, findings); the word-for-word items below stay. Content, in this order:
 
 1. **Open questions for the user**, each with Claude's recommendation, asked first, before any work. If an event was scheduled, a check comes here too ("Did the 14 Mar call happen? What changed?").
 2. **One line on the task**, quoting the user's own scope word for word, never a narrower summary.
@@ -76,16 +78,16 @@ Don't tell the next chat to skip clarifying questions or to go beyond the confir
 
 ## Step 5: Review (the cold read)
 
-Before reporting, test whether a fresh chat could really continue from the two files alone:
+Before reporting, test whether a fresh chat could really continue from the two files alone (a finished task: from the handoff alone):
 
 1. Search both files for guard-rule words (spend, budget, send, delete, approve) and check each against its source (rule 5).
-2. Start a fresh helper (a sub-agent, where your app has them) that gets ONLY the handoff file, the kickoff and the saved plan file (if there is one), nothing from this chat. Ask it: "Could you start this task from these files alone? List anything missing, unclear or contradictory." Where there is no helper, read the two files yourself as if you had never seen the chat.
+2. Start a fresh helper (a sub-agent, where your app has them) that gets ONLY the handoff file, the kickoff (if one was written) and the saved plan file (if there is one), nothing from this chat. Ask it: "Could you start this task from these files alone? List anything missing, unclear or contradictory." Where there is no helper, read the two files yourself as if you had never seen the chat.
 3. Fix every gap it finds, then report.
 
 ## Step 6: Report
 
-- Both file paths.
+- Both file paths (a finished task: the handoff path only).
 - "Handoff: <N> words".
 - Every agreed deliverable as done, pending or deferred, checked against the files.
 - The review line: "Review: <N> gaps found, <N> fixed".
-- What the user does next: open a new chat and paste the kickoff.
+- What the user does next: open a new chat and paste the kickoff; for a finished task, nothing (no kickoff was written).

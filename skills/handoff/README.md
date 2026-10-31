@@ -49,7 +49,7 @@ Use it when a chat gets long or when you switch tasks.
 
 ## Latest change
 
-**1.1.0 (2026-10-29):** asks only the questions that would change the handoff. Full history: [CHANGELOG.md](CHANGELOG.md).
+**1.2.0 (2026-10-31):** no kickoff for finished work, and one kickoff file per next chat. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
