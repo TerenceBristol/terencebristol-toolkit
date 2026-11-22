@@ -99,9 +99,10 @@ It finds your setup files on its own, whatever mix you use. It's most useful for
 
 ---
 
-## Watch the video
+## Watch the videos
 
-[My AI Agents Now Upgrade Themselves (Claude Code)](https://youtu.be/heLMN5oDHEU)
+- [I Kept Correcting Claude. Now It Improves Itself](https://youtu.be/UCdYea40AvQ) (November 2026, version 6.1.0)
+- [My AI Agents Now Upgrade Themselves (Claude Code)](https://youtu.be/heLMN5oDHEU) (April 2026, an earlier version)
 
 ---
 
