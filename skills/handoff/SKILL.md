@@ -21,6 +21,10 @@ Why: long chats get slower, more expensive and more confused, because Claude re-
 6. **Verified only.** State only what was checked. Label guesses as guesses. Write scheduled events as scheduled, never in the past tense.
 7. **Real times.** Read the clock first (for example `date '+%Y-%m-%d %H:%M'`). Every time in the handoff and kickoff comes from the clock or a record, in the time zone saved in the handoff folder's README (otherwise the computer's own).
 
+## Step 0: Is a handoff needed?
+
+Before writing, list what the next chat would pick up that no task, ticket or other open kickoff already carries. If the list is empty, write one line, "No handoff needed: <why>", and stop, because a handoff with nothing to pick up only costs a read. This step never applies when the user asked for a handoff or kickoff, or when a plan or a long run moves the work to a new chat on purpose.
+
 ## Step 1: Load the project's handoff rules
 
 1. Read the project's `CLAUDE.md` for any handoff rules (including where the handoff folder lives), and `<handoff folder>/README.md` if it exists. With no folder named anywhere, the handoff folder is `handoff/` in the project root.
@@ -66,13 +70,13 @@ Ask one question at a time, recommendation first with its reason, but only a que
 A plain-text file, `<handoff folder>/kickoff-<topic>.txt`, overwritten on every run (one prompt, the latest state). No placeholders. One kickoff per next chat: never a second copy beside it (a `-b` copy, a `.pre-<date>` backup, a dated copy), because a chat started from an old copy works from stale state. It restates no state the handoff holds (counts, statuses, findings); the word-for-word items below stay. Content, in this order:
 
 1. **Open questions for the user**, each with Claude's recommendation, asked first, before any work. If an event was scheduled, a check comes here too ("Did the 14 Mar call happen? What changed?").
-2. **One line on the task**, quoting the user's own scope word for word, never a narrower summary.
+2. **One line on the task**, quoting the user's own scope word for word, never a narrower summary. Leftovers of other tasks go on one "Not this session" line, each with where it gets picked up, never as tasks of this chat, because a kickoff that bundles side topics makes the next chat drift.
 3. **"Already decided, do not re-ask"**: a list of the settled points, each with the user's words and the date. Points mentioned only in passing get re-asked otherwise.
 4. **What to read:** "Read `<handoff path>` fully first", then the transcript, if there is one.
-5. **"Check live first":** the live sources to re-read before trusting the snapshot (a board, a shared doc, an inbox, a repo).
+5. **"Check live first":** the live sources to re-read before trusting the snapshot (a board, a shared doc, an inbox, a repo). Then add the line: "Links, counts and planned sends in this kickoff are an earlier chat's view: re-check them against live sources before acting. The 'Already decided' list and an approved plan stand; where a file and this kickoff disagree on anything else, follow the newer dated source and say so." A hold or limit the earlier chat set for a reason (it waits for a release, a price date) is re-checked against that reason: say when it no longer applies or covers more than the reason needs.
 6. **How to start:** the real first steps.
 7. **The confirmed first task**, then this line: "When I paste this kickoff with words of my own, my words decide what runs."
-8. **Hard limits** that must survive: approvals already given, things NOT to do, copied word for word.
+8. **Hard limits** that must survive: approvals already given, things NOT to do, copied word for word. A project rule is quoted with its file and line, and the user's decisions word for word (item 3); nothing else is written as a rule (a constraint the chat learned goes in as a fact with its source), because an invented rule gets followed as if the user had set it.
 
 Don't tell the next chat to skip clarifying questions or to go beyond the confirmed first task.
 

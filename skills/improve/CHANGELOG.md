@@ -4,6 +4,20 @@ All notable changes to the `/improve` skill are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [6.1.0] - 2026-11-22
+
+### Added
+- **Red/green findings page:** a ready-made script draws the page. Your calls come first and technical housekeeping folds below; each change shows removed words in red and added words in green. The page also says how many changes need a plan and whether your always-loaded instructions grow.
+- **"All sessions" scope:** when more than 10 sessions have passed since the last run, you can scan all of them; on a first run that reads your whole history.
+- **Session reader script:** the history scan uses a tested script to pull the dialogue out of past sessions, including what you typed while Claude was working, instead of writing its own on the first run.
+- **Pair each addition with a cut:** a new rule that grows your always-loaded instructions names the cut it pairs with, or why it earns its place.
+
+### Changed
+- **Scope question:** in a fresh conversation it recommends reading past sessions, because a fresh conversation has nothing else to learn from; in a fresh conversation on a first run with more than 10 sessions, it recommends reading all of them.
+- **A folder, not one file:** a short `SKILL.md` core with `references/` and `scripts/`. If you copied the old single file, replace it with the whole folder.
+- **Run log:** each run records its runtime, which the next run uses to estimate a long scan.
+- **Old session reader:** if `jq` is installed, the `~/.claude/improve-extract.sh` an earlier version wrote is no longer used and can be deleted.
+
 ## [6.0.0] - 2026-10-20
 
 ### Added

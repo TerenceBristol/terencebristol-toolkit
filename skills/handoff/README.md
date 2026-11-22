@@ -37,11 +37,12 @@ Want Claude to walk you through it? Use the [/handoff setup prompt](../../prompt
 
 Long chats get slower, more expensive and more confused, because Claude re-reads the whole conversation with every message. `/handoff` lets you start fresh without losing the thread:
 
-1. **Writes a handoff file:** the goal, what's done, what's left, the open decisions, and your decisions quoted in your own words.
-2. **Saves the approved plan** once, and points to it.
-3. **Keeps your exact words:** in Claude Code, a small script turns the chat's session log into a readable transcript of the chat, with your words exact. Elsewhere, Claude quotes your words from the chat.
-4. **Writes a kickoff prompt** you paste into the next chat.
-5. **Reviews itself:** a fresh helper reads only the handoff, the kickoff and the saved plan, and checks a new chat could really continue from them.
+1. **Checks a handoff is needed:** when nothing is left for a next chat to pick up, it says so and stops.
+2. **Writes a handoff file:** the goal, what's done, what's left, the open decisions, and your decisions quoted in your own words.
+3. **Saves the approved plan** once, and points to it.
+4. **Keeps your exact words:** in Claude Code, a small script turns the chat's session log into a readable transcript of the chat, with your words exact. Elsewhere, Claude quotes your words from the chat.
+5. **Writes a kickoff prompt** you paste into the next chat.
+6. **Reviews itself:** a fresh helper reads only the handoff, the kickoff and the saved plan, and checks a new chat could really continue from them.
 
 Use it when a chat gets long or when you switch tasks.
 
@@ -49,7 +50,7 @@ Use it when a chat gets long or when you switch tasks.
 
 ## Latest change
 
-**1.2.0 (2026-10-31):** no kickoff for finished work, and one kickoff file per next chat. Full history: [CHANGELOG.md](CHANGELOG.md).
+**1.3.0 (2026-11-22):** checks first whether a handoff is needed, and the kickoff tells the next chat to re-check old links and counts. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

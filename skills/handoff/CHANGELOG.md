@@ -4,6 +4,14 @@ All notable changes to the `/handoff` skill are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.3.0] - 2026-11-22
+
+### Added
+- **Is a handoff needed?** Before writing, it lists what a next chat would pick up; when nothing is left, it says so and stops (never when you asked for a handoff).
+
+### Changed
+- **Kickoff items:** leftovers of other tasks go on one "Not this session" line; the kickoff tells the next chat to re-check its links, counts and planned sends against live sources; a hard limit quotes a real rule with its file, never an invented one.
+
 ## [1.2.0] - 2026-10-31
 
 ### Changed

@@ -6,7 +6,7 @@
     {
       "name": "terencebristol-toolkit",
       "source": "./",
-      "description": "Skills for working with AI. First up: /improve, which makes your Claude Code setup better after every conversation."
+      "description": "Skills for working with AI, from Terence Bristol's videos."
     }
   ]
 }

@@ -46,7 +46,7 @@ When a decision depends on how others do it (a best practice, format, tool, what
 
 ## The flow
 
-1. **Brief.** Answer a direct question in the brief first, briefly (provisional if unchecked); a simple question gets an answer, not an interview. Then one plain line says what happens next.
+1. **Brief.** Answer a direct question in the brief first, briefly, after the quick read that settles it; say "not checked yet" only when that read is long. A simple question gets an answer, not an interview. Then one plain line says what happens next.
    **Before-round:** glance at what is quickly visible (file names and dates, the brief's links, one or two key files when cheap) to ground your pick. Then ask, one at a time, any 1 to 3 questions that change where you look or what "good" means (purpose, audience, constraints, success), each with your guess as the pick ("Build on what exists? My guess so far: yes, it's recent."; in a picker, the first option labelled "(Recommended)", as in rule 2). Questions needing the findings wait. Never open with generic questions. "Interview me first" or "ask me questions first" always gets the before-round.
    When the old version is being rebuilt, the before-round first settles the acceptance bar: "match the old one, or may it differ?" (usual pick: match; when the brief asks for change, ask instead which parts must stay). State it in the result, so gaps count as missing requirements, not open questions. Example: a rebuilt report drops columns the old one had; with the bar set to "match it", those are missing requirements, not scope questions.
 2. **Investigate**, plus any research the person approved.

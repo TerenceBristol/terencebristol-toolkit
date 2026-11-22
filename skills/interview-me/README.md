@@ -58,7 +58,7 @@ Inspired by [Superpowers' brainstorming skill](https://github.com/obra/superpowe
 
 ## Latest change
 
-**1.0.0 (2026-10-18):** first public version. Full history: [CHANGELOG.md](CHANGELOG.md).
+**1.0.1 (2026-11-22):** a direct question in your brief gets a checked answer first, not a guess. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

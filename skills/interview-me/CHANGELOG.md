@@ -4,6 +4,11 @@ All notable changes to the `/interview-me` skill are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.0.1] - 2026-11-22
+
+### Changed
+- A direct question in your brief is answered after the quick check that settles it, instead of a provisional guess; "not checked yet" only when that check is long.
+
 ## [1.0.0] - 2026-10-18
 
 ### Added
